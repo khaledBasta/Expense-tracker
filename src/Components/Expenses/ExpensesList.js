@@ -22,6 +22,8 @@ function ExpensesList(props) {
         />
         {props.items.map((expense) => (
           <ExpenseItem
+            // You should always add such a key when mapping out list of items
+            key={expense.id}
             title={expense.title}
             amount={expense.amount}
             date={expense.date}
