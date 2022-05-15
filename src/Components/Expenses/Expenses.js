@@ -1,10 +1,10 @@
-import ExpenseItem from "./ExpenseItem";
+import ExpensesList from "./ExpensesList";
 import Card from "../UI/Card";
 import "./Expenses.css";
 import ExpensesFilter from "./ExpenseFilter";
 import { useState } from "react";
 
-function ExpensesList(props) {
+function Expenses(props) {
   const [filteredYear, setFilteredYear] = useState("2020");
 
   const filterChangeHandler = (selectedYear) => {
@@ -18,32 +18,16 @@ function ExpensesList(props) {
   // You can store JSX content in a variables, u are not limited to using JSX only if u return
   // You can also use it to create a value, which is stored in a variable
   let expensesContent = <p>No Expense items found.</p>;
-
-  // Method-03: Write the Logic in the component fucntion itself, and pass only expensesContent inside return
-  // This is probably the cleanest way of all the 3 method
-  if (filteredExpenses.length > 0) {
-    expensesContent = filteredExpenses.map((expense) => (
-      <ExpenseItem
-        // You should always add such a key when mapping out list of items
-        key={expense.id}
-        title={expense.title}
-        amount={expense.amount}
-        date={expense.date}
-      />
-    ));
-  }
-
   return (
     <div>
-      <Card className="expenses-list">
+      <Card className="expenses">
         {/* controlled component Basically, whenever you use two way binding you are controlling a component, value passed to parent through props & value received from the parent component*/}
         <ExpensesFilter
           defaultSelected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
 
-        {/* Method-03 */}
-        {expensesContent}
+        <ExpensesList items={filteredExpenses} />
 
         {/* Mehtod-02: Using AND operator */}
         {/* {filteredExpenses.length === 0 && <p>No Expense Items Found.</p>}
@@ -77,4 +61,4 @@ function ExpensesList(props) {
   );
 }
 
-export default ExpensesList;
+export default Expenses;
